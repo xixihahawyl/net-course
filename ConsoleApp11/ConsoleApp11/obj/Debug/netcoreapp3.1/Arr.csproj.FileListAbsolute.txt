@@ -1,0 +1,13 @@
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\netcoreapp3.1\Arr.exe
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\netcoreapp3.1\Arr.deps.json
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\netcoreapp3.1\Arr.runtimeconfig.json
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\netcoreapp3.1\Arr.runtimeconfig.dev.json
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\netcoreapp3.1\Arr.dll
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\bin\Debug\netcoreapp3.1\Arr.pdb
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\netcoreapp3.1\Arr.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\netcoreapp3.1\Arr.AssemblyInfoInputs.cache
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\netcoreapp3.1\Arr.AssemblyInfo.cs
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\netcoreapp3.1\Arr.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\netcoreapp3.1\Arr.dll
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\netcoreapp3.1\Arr.pdb
+C:\Users\74686\source\repos\ConsoleApp11\ConsoleApp11\obj\Debug\netcoreapp3.1\Arr.genruntimeconfig.cache
