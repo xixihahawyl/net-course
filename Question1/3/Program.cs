@@ -7,6 +7,7 @@ namespace Q3
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("输入n的值");
             int n = 0;
             string s = "";
             s=Console.ReadLine();

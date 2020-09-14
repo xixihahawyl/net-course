@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\3\\shaixuan.csproj",
+      "projectUniqueName": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\3\\shaixuan.csproj",
       "projectName": "shaixuan",
-      "projectPath": "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\3\\shaixuan.csproj",
+      "projectPath": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\3\\shaixuan.csproj",
       "packagesPath": "C:\\Users\\74686\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\3\\obj\\",
+      "outputPath": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\74686\\AppData\\Roaming\\NuGet\\NuGet.Config",

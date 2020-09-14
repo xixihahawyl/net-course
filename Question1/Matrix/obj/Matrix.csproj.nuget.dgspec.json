@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\Matrix\\Matrix.csproj": {}
+    "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\Matrix\\Matrix.csproj": {}
   },
   "projects": {
-    "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\Matrix\\Matrix.csproj": {
+    "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\Matrix\\Matrix.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\Matrix\\Matrix.csproj",
+        "projectUniqueName": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\Matrix\\Matrix.csproj",
         "projectName": "Matrix",
-        "projectPath": "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\Matrix\\Matrix.csproj",
+        "projectPath": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\Matrix\\Matrix.csproj",
         "packagesPath": "C:\\Users\\74686\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\74686\\source\\repos\\ConsoleApp11\\Matrix\\obj\\",
+        "outputPath": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question1\\Matrix\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\74686\\AppData\\Roaming\\NuGet\\NuGet.Config",
