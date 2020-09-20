@@ -1,0 +1,13 @@
+C:\Users\74686\source\repos\Question2\Alarm\bin\Debug\netcoreapp3.1\Alarm.exe
+C:\Users\74686\source\repos\Question2\Alarm\bin\Debug\netcoreapp3.1\Alarm.deps.json
+C:\Users\74686\source\repos\Question2\Alarm\bin\Debug\netcoreapp3.1\Alarm.runtimeconfig.json
+C:\Users\74686\source\repos\Question2\Alarm\bin\Debug\netcoreapp3.1\Alarm.runtimeconfig.dev.json
+C:\Users\74686\source\repos\Question2\Alarm\bin\Debug\netcoreapp3.1\Alarm.dll
+C:\Users\74686\source\repos\Question2\Alarm\bin\Debug\netcoreapp3.1\Alarm.pdb
+C:\Users\74686\source\repos\Question2\Alarm\obj\Debug\netcoreapp3.1\Alarm.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\Question2\Alarm\obj\Debug\netcoreapp3.1\Alarm.AssemblyInfoInputs.cache
+C:\Users\74686\source\repos\Question2\Alarm\obj\Debug\netcoreapp3.1\Alarm.AssemblyInfo.cs
+C:\Users\74686\source\repos\Question2\Alarm\obj\Debug\netcoreapp3.1\Alarm.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\Question2\Alarm\obj\Debug\netcoreapp3.1\Alarm.dll
+C:\Users\74686\source\repos\Question2\Alarm\obj\Debug\netcoreapp3.1\Alarm.pdb
+C:\Users\74686\source\repos\Question2\Alarm\obj\Debug\netcoreapp3.1\Alarm.genruntimeconfig.cache
