@@ -11,12 +11,17 @@ namespace Q1
             s = Console.ReadLine();
             a = Int32.Parse(s);
 
-            for (int i = 1; i <= a; i++)
+            for (int i = 2; i <= a; i++)
             {
-                int b = a % i;
-                if (b == 0)
+                while (true)
                 {
-                    Console.WriteLine(i);
+                    int b = a % i;
+                    if (b == 0)
+                    {
+                        Console.WriteLine(i);
+                        a = a / i;
+                    }
+                    else break;
                 }
             }
             s = Console.ReadLine();
