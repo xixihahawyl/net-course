@@ -1,0 +1,13 @@
+C:\Users\74686\source\repos\Question3\Question3\bin\Debug\netcoreapp3.1\Question3.exe
+C:\Users\74686\source\repos\Question3\Question3\bin\Debug\netcoreapp3.1\Question3.deps.json
+C:\Users\74686\source\repos\Question3\Question3\bin\Debug\netcoreapp3.1\Question3.runtimeconfig.json
+C:\Users\74686\source\repos\Question3\Question3\bin\Debug\netcoreapp3.1\Question3.runtimeconfig.dev.json
+C:\Users\74686\source\repos\Question3\Question3\bin\Debug\netcoreapp3.1\Question3.dll
+C:\Users\74686\source\repos\Question3\Question3\bin\Debug\netcoreapp3.1\Question3.pdb
+C:\Users\74686\source\repos\Question3\Question3\obj\Debug\netcoreapp3.1\Question3.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\Question3\Question3\obj\Debug\netcoreapp3.1\Question3.AssemblyInfoInputs.cache
+C:\Users\74686\source\repos\Question3\Question3\obj\Debug\netcoreapp3.1\Question3.AssemblyInfo.cs
+C:\Users\74686\source\repos\Question3\Question3\obj\Debug\netcoreapp3.1\Question3.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\Question3\Question3\obj\Debug\netcoreapp3.1\Question3.dll
+C:\Users\74686\source\repos\Question3\Question3\obj\Debug\netcoreapp3.1\Question3.pdb
+C:\Users\74686\source\repos\Question3\Question3\obj\Debug\netcoreapp3.1\Question3.genruntimeconfig.cache
