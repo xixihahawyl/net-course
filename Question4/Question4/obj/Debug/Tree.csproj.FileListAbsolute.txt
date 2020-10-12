@@ -1,0 +1,10 @@
+C:\Users\74686\source\repos\Question4\Question4\bin\Debug\Question4.exe.config
+C:\Users\74686\source\repos\Question4\Question4\bin\Debug\Question4.exe
+C:\Users\74686\source\repos\Question4\Question4\bin\Debug\Question4.pdb
+C:\Users\74686\source\repos\Question4\Question4\obj\Debug\Tree.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\Question4\Question4\obj\Debug\Question4.Properties.Resources.resources
+C:\Users\74686\source\repos\Question4\Question4\obj\Debug\Tree.csproj.GenerateResource.cache
+C:\Users\74686\source\repos\Question4\Question4\obj\Debug\Tree.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\Question4\Question4\obj\Debug\Question4.exe
+C:\Users\74686\source\repos\Question4\Question4\obj\Debug\Question4.pdb
+C:\Users\74686\source\repos\Question4\Question4\obj\Debug\Tree.Form1.resources

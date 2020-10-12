@@ -1,0 +1,7 @@
+C:\Users\74686\source\repos\Question4\OrderService\bin\Debug\OrderService.exe.config
+C:\Users\74686\source\repos\Question4\OrderService\bin\Debug\OrderService.exe
+C:\Users\74686\source\repos\Question4\OrderService\bin\Debug\OrderService.pdb
+C:\Users\74686\source\repos\Question4\OrderService\obj\Debug\OrderService.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\Question4\OrderService\obj\Debug\OrderService.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\Question4\OrderService\obj\Debug\OrderService.exe
+C:\Users\74686\source\repos\Question4\OrderService\obj\Debug\OrderService.pdb

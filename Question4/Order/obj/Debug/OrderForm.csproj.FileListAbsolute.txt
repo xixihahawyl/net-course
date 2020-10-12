@@ -1,0 +1,16 @@
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\OrderForm.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\appForm.Form1.resources
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\Order.Properties.Resources.resources
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\OrderForm.csproj.GenerateResource.cache
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\OrderForm.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\Order.exe
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\Order.pdb
+C:\Users\74686\source\repos\Question4\Order\bin\Debug\Order.exe.config
+C:\Users\74686\source\repos\Question4\Order\bin\Debug\Order.exe
+C:\Users\74686\source\repos\Question4\Order\bin\Debug\Order.pdb
+C:\Users\74686\source\repos\Question4\Order\bin\Debug\OrderService.exe
+C:\Users\74686\source\repos\Question4\Order\bin\Debug\OrderService.pdb
+C:\Users\74686\source\repos\Question4\Order\bin\Debug\OrderService.exe.config
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\appForm.FormEdit.resources
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\OrderForm.csproj.CopyComplete
+C:\Users\74686\source\repos\Question4\Order\obj\Debug\Order.FormItemsEdit.resources
