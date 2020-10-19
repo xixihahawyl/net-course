@@ -74,5 +74,17 @@ namespace appForm
                 QueryAll();
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            app.Order order = orderBindingSource.Current as app.Order;
+            if (order == null)
+            {
+                MessageBox.Show("请选择一个订单进行删除");
+                return;
+            }
+            orderService.RemoveOrder(order.Id);
+            QueryAll();
+        }
     }
 }

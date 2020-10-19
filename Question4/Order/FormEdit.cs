@@ -58,7 +58,7 @@ namespace appForm
 
         private void EditItem()
         {
-            app.OrderDetails orderItem = itemsBindingSource.Current as app.OrderDetails;
+            app.OrderDetails orderItem = itemsBindingSource.Current as app.OrderDetails;  //选中itemsBindingSource.Current对象
             if (orderItem == null)
             {
                 MessageBox.Show("请选择一个订单项进行修改");
