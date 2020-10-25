@@ -86,5 +86,44 @@ namespace appForm
             orderService.RemoveOrder(order.Id);
             QueryAll();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0://所有订单
+                    orderBindingSource.DataSource = orderService.Orders;
+                    break;
+                case 1://根据ID查询
+                    int.TryParse(Keyword, out int id);
+                    app.Order order = orderService.GetOrder(id);
+                    List<app.Order> result = new List<app.Order>();
+                    if (order != null) result.Add(order);
+                    orderBindingSource.DataSource = result;
+                    break;
+            }
+            orderBindingSource.ResetBindings(false);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = saveFileDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                String fileName = saveFileDialog1.FileName;
+                orderService.Export(fileName);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                String fileName = openFileDialog1.FileName;
+                orderService.Import(fileName);
+                QueryAll();
+            }
+        }
     }
 }

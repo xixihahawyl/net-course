@@ -143,7 +143,7 @@ namespace app
             }
         }
         //反序列化
-        public List<Order> Import(string path)
+        public void Import(string path)
         {
             if (Path.GetExtension(path) != ".xml")
                 throw new ArgumentException($"{path} isn't a xml file!");
@@ -153,7 +153,13 @@ namespace app
             {
                 using (FileStream fs = new FileStream(path, FileMode.Open))
                 {
-                    return (List<Order>)xs.Deserialize(fs);
+                    List<Order> temp = (List<Order>)xs.Deserialize(fs);
+                    temp.ForEach(order => {
+                        if (!orders.Contains(order))
+                        {
+                            orders.Add(order);
+                        }
+                    });
                 }
             }
             catch (Exception e)

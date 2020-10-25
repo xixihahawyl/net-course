@@ -27,8 +27,8 @@ namespace app
                     case 5:os.Export(@".\order.xml");break;
                     case 7:  Console.WriteLine(os.ToString());break;
                     case 6:
-                        List<Order> importedOrders = os.Import(@".\order.xml");
-                        importedOrders.ForEach(o => Console.WriteLine(o));
+                        //List<Order> importedOrders = os.Import(@".\order.xml");
+                       // importedOrders.ForEach(o => Console.WriteLine(o));
                         break;
                 }
             }
