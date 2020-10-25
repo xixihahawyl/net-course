@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\74686\\source\\repos\\Question5\\Question5\\SimpleCrawler.csproj",
+      "projectUniqueName": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question5\\Question5\\SimpleCrawler.csproj",
       "projectName": "SimpleCrawler",
-      "projectPath": "C:\\Users\\74686\\source\\repos\\Question5\\Question5\\SimpleCrawler.csproj",
+      "projectPath": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question5\\Question5\\SimpleCrawler.csproj",
       "packagesPath": "C:\\Users\\74686\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\74686\\source\\repos\\Question5\\Question5\\obj\\",
+      "outputPath": "C:\\Users\\74686\\source\\repos\\xixihahawyl\\net-course\\Question5\\Question5\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\74686\\AppData\\Roaming\\NuGet\\NuGet.Config",
