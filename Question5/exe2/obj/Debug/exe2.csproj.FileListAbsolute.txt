@@ -1,0 +1,9 @@
+C:\Users\74686\source\repos\Question5\exe2\bin\Debug\exe2.exe.config
+C:\Users\74686\source\repos\Question5\exe2\bin\Debug\exe2.exe
+C:\Users\74686\source\repos\Question5\exe2\bin\Debug\exe2.pdb
+C:\Users\74686\source\repos\Question5\exe2\obj\Debug\exe2.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\Question5\exe2\obj\Debug\exe2.Properties.Resources.resources
+C:\Users\74686\source\repos\Question5\exe2\obj\Debug\exe2.csproj.GenerateResource.cache
+C:\Users\74686\source\repos\Question5\exe2\obj\Debug\exe2.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\Question5\exe2\obj\Debug\exe2.exe
+C:\Users\74686\source\repos\Question5\exe2\obj\Debug\exe2.pdb
