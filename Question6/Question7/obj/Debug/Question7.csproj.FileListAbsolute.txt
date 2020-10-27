@@ -1,0 +1,9 @@
+C:\Users\74686\source\repos\Question7\Question7\bin\Debug\Question7.exe.config
+C:\Users\74686\source\repos\Question7\Question7\bin\Debug\Question7.exe
+C:\Users\74686\source\repos\Question7\Question7\bin\Debug\Question7.pdb
+C:\Users\74686\source\repos\Question7\Question7\obj\Debug\Question7.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\Question7\Question7\obj\Debug\Question7.Properties.Resources.resources
+C:\Users\74686\source\repos\Question7\Question7\obj\Debug\Question7.csproj.GenerateResource.cache
+C:\Users\74686\source\repos\Question7\Question7\obj\Debug\Question7.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\Question7\Question7\obj\Debug\Question7.exe
+C:\Users\74686\source\repos\Question7\Question7\obj\Debug\Question7.pdb
