@@ -1,0 +1,9 @@
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\bin\Debug\exe3.exe.config
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\bin\Debug\exe3.exe
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\bin\Debug\exe3.pdb
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\obj\Debug\exe3.csprojAssemblyReference.cache
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\obj\Debug\exe3.Properties.Resources.resources
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\obj\Debug\exe3.csproj.GenerateResource.cache
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\obj\Debug\exe3.csproj.CoreCompileInputs.cache
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\obj\Debug\exe3.exe
+C:\Users\74686\source\repos\xixihahawyl\net-course\Question5\exe3\obj\Debug\exe3.pdb

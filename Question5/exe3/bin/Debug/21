@@ -1,0 +1,643 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="never" />
+    <meta name="description" content="我们在《ASP.NET Core项目实战的课程》第一章里面给identity server4做了一个全面的介绍和示例的练习 ，这篇文章是根据大家对OIDC遇到的一些常见问题整理得出。 本文将涉及到以下" />
+    <meta property="og:description" content="我们在《ASP.NET Core项目实战的课程》第一章里面给identity server4做了一个全面的介绍和示例的练习 ，这篇文章是根据大家对OIDC遇到的一些常见问题整理得出。 本文将涉及到以下" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Open ID Connect(OIDC)在 ASP.NET Core中的应用 - 腾飞（Jesse) - 博客园</title>
+    <link id="favicon" rel="shortcut icon" href="//common.cnblogs.com/favicon.svg" type="image/svg+xml" />
+    
+    <link rel="stylesheet" href="/css/blog-common.min.css?v=caAedYKpnz341INFIWakIM6r1EP9FIuJg43i9i8zqDQ" />
+    <link id="MainCss" rel="stylesheet" href="/skins/simplememory/bundle-simplememory.min.css?v=uknaX_hejnSu-njQgx4Hj1R0JiPLwUhFPUlwWNmWyB4" />
+    <link type="text/css" rel="stylesheet" href="https://www.cnblogs.com/jesse2013/custom.css?v=DB/sw3iTGnXC/2h0J9yhKcfI5&#x2B;k=" />
+    <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/SimpleMemory/bundle-SimpleMemory-mobile.min.css" />
+    
+    <link type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/jesse2013/rss" />
+    <link type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/jesse2013/rsd.xml" />
+    <link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/jesse2013/wlwmanifest.xml" />
+    <script>
+        var currentBlogId = 159331;
+        var currentBlogApp = 'jesse2013';
+        var cb_enable_mathjax = false;
+        var isLogined = false;
+        var isBlogOwner = false;
+        var skinName = 'SimpleMemory';
+        var visitorUserId = '';
+    </script>
+        <script>
+            var currentPostDateAdded = '2018-03-07 09:45';
+        </script>
+    <script src="https://common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script src="/js/blog-common.min.js?v=kKx3DBtpvO8r97BzPmHJseQ10fGHkI-ZwMh4FA0eEd0"></script>
+    
+    
+    
+</head>
+<body class="has-navbar">
+    <a name="top"></a> 
+    <div id="top_nav" class="navbar">
+        <nav id="nav_main" class="navbar-main">
+            <ul id="nav_left" class="navbar-list navbar-left">
+                <li class="navbar-branding">
+                    <a href="https://www.cnblogs.com/" title="开发者的网上家园"><img src="/images/logo.svg?v=R9M0WmLAIPVydmdzE2keuvnjl-bPR7_35oHqtiBzGsM" alt="博客园Logo" /></a>
+                </li>
+                <li><a href="/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-sitehome')">首页</a></li>
+                <li><a href="https://news.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-news')">新闻</a></li>
+                <li><a href="https://q.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-q')">博问</a></li>
+                <li><a id="nav_brandzone" href="https://brands.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-brands')">专区</a></li>
+                <li><a href="https://ing.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-ing')">闪存</a></li>
+                <li><a href="https://edu.cnblogs.com/" onclick="ga('send', 'event', 'Link', 'click', 'skin-navbar-edu')">班级</a></li>
+            </ul>
+            <ul id="nav_right" class="navbar-list navbar-right">
+                <li>
+                    <form id="zzk_search" class="navbar-search" action="https://zzk.cnblogs.com/s" method="get">
+                        <input name="w" id="zzk_search_input" placeholder="代码改变世界" type="text" tabindex="3" />
+                        <button type="submit" id="zzk_search_button">
+                            <img src="/images/aggsite/search.svg" alt="搜索" />
+                        </button>
+                    </form>
+                </li>
+                <li id="navbar_login_status" class="navbar-list">
+                    <a id="navblog-myblog-icon" class="navbar-user-info navbar-blog" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx" alt="我的博客" title="我的博客">
+                        <img id="myblog_icon" class="navbar-icon" src="/images/aggsite/myblog.svg" alt="我的博客" />
+                    </a>
+                    <a class="navbar-user-info navbar-message navbar-icon-wrapper" href="https://msg.cnblogs.com/" alt="短消息" title="短消息">
+                        <img id="msg_icon" class="navbar-icon" src="/images/aggsite/message.svg?v=oS4PkibyMjZ9rGD5XAcLt99uW_s76Javy2up4dbnZNY" alt="短消息" />
+                        <span id="msg_count" style="display: none"></span>
+                    </a>
+                    <div id="user_info" class="navbar-user-info dropdown">
+                        <a class="dropdown-button" href="https://home.cnblogs.com/">
+                            <img id="user_icon" class="navbar-avatar" src="/images/aggsite/avatar-default.svg" alt="用户头像" />
+                        </a>
+                        <div class="dropdown-menu">
+                            <a id="navblog-myblog-text" href="https://passport.cnblogs.com/GetBlogApplyStatus.aspx">我的博客</a>
+                            <a href="https://home.cnblogs.com/">我的园子</a>
+                            <a href="https://account.cnblogs.com/settings/account">账号设置</a>
+                            <a href="javascript:void(0)" onclick="logout();">退出登录</a>
+                        </div>
+                    </div>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signup/">注册</a>
+                    <a class="navbar-anonymous" href="https://account.cnblogs.com/signin/?returnUrl=https://www.cnblogs.com/">登录</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="page_begin_html">
+        <link rel="stylesheet" type="text/css" href="https://files.cnblogs.com/jesse2013/mystle.css?v=10132013.10">
+    </div>
+    <!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+        <a id="lnkBlogLogo" href="https://www.cnblogs.com/jesse2013/"><img id="blogLogo" src="/skins/custom/images/logo.gif" alt="返回主页" /></a>		
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle HeaderMainTitle" href="https://www.cnblogs.com/jesse2013/">腾飞（Jesse）</a>
+</h1>
+<h2>
+
+</h2>
+
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li>
+</li>
+<li>
+<a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/jesse2013/">
+首页</a>
+</li>
+<li>
+
+
+</li>
+<li>
+<a id="blog_nav_contact" class="menu" href="https://msg.cnblogs.com/send/%E8%85%BE%E9%A3%9E%EF%BC%88Jesse%29">
+联系</a></li>
+<li>
+<a id="blog_nav_rss" class="menu" href="javascript:void(0)" data-rss="https://www.cnblogs.com/jesse2013/rss/">
+订阅</a>
+<!--<partial name="./Shared/_XmlLink.cshtml" model="Model" /></li>--></li>
+<li>
+<a id="blog_nav_admin" class="menu" href="https://i.cnblogs.com/">
+管理</a>
+</li>
+</ul>
+
+
+		<div class="blogStats">
+			<span id="stats_post_count">随笔 - 
+46&nbsp; </span>
+<span id="stats_article_count">文章 - 
+0&nbsp; </span>
+<span id="stats-comment_count">评论 - 
+3695</span>
+
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="post_detail">
+    <!--done-->
+    <div id="topics">
+        <div class="post">
+            <h1 class = "postTitle">
+                
+<a id="cb_post_title_url" class="postTitle2 vertical-middle" href="https://www.cnblogs.com/jesse2013/p/oidc-in-aspnetcore-with-identity-server.html">
+    <span>Open ID Connect(OIDC)在 ASP.NET Core中的应用</span>
+    
+
+
+</a>
+
+            </h1>
+            <div class="clear"></div>
+            <div class="postBody">
+                
+<div id="cnblogs_post_body" class="blogpost-body">
+    <p>我们在《ASP.NET Core项目实战的课程》第一章里面给identity server4做了一个全面的介绍和示例的练习 ，这篇文章是根据大家对OIDC遇到的一些常见问题整理得出。</p>
+<p>本文将涉及到以下几个话题：</p>
+<ul>
+<li>
+<p>什么是OpenId Connect (OIDC)</p>
+</li>
+<li>
+<p>OIDC 对oAuth进行了哪些扩展？</p>
+</li>
+<li>
+<p>Identity Server4提供的OIDC认证服务（服务端）</p>
+</li>
+<li>
+<p>ASP.NET Core的权限体系中的OIDC认证框架（客户端）</p>
+</li>
+</ul>
+<h1><a id="user-content-什么是-oidc" class="anchor" href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/chapter1.md#%E4%BB%80%E4%B9%88%E6%98%AF-oidc"></a>什么是 OIDC</h1>
+<p>在了解OIDC之前，我们先看一个很常见的场景。假使我们现在有一个网站要集成微信或者新浪微博的登录，两者现在依然采用的是oAuth 2.0的协议来实现 。 关于微信和新浪微博的登录大家可以去看看它们的开发文档。</p>
+<p>在我们的网站集成微博或者新浪微博的过程大致是分为五步：</p>
+<ol>
+<li>
+<p>准备工作：在微信/新浪微博开发平台注册一个应用，得到AppId和AppSecret</p>
+</li>
+<li>
+<p>发起 oAauth2.0 中的 Authorization Code流程请求Code</p>
+</li>
+<li>
+<p>根据Code再请求AccessToken（通常在我们应用的后端完成，用户不可见）</p>
+</li>
+<li>
+<p>根据 AccessToken 访问微信/新浪微博的某一个API，来获取用户的信息</p>
+</li>
+<li>
+<p>后置工作：根据用户信息来判断是否之前登录过？如果没有则创建一个用户并将这个用户作为当前用户登录（我们自己应用的登录逻辑，比如生成jwt），如果有了则用之前的用户登录。</p>
+</li>
+</ol>
+<p>中间第2到3的步骤为标准的oAuth2 授权码模式的流程，如果不理解的可以参考阮一峰所写的《<a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" rel="nofollow" target="_blank">理解oAuth2.0&nbsp;</a>》一文。我们主要来看第4和5步，对于第三方应用要集成微博登录这个场景来说最重要的是我希望能快速拿到用户的一些基本信息（免去用户再次输入的麻烦）然后根据这些信息来生成一个我自己的用户跟微博的用户Id绑定（为的是下次你使用微博登录的时候我还能把你再找出来）。</p>
+<p>oAuth在这里麻烦的地方是我还需要再请求一次API去获取用户数据，注意这个API和登录流程是不相干的，其实是属于微博开放平台丛多API中的一个，包括微信开放平台也是这样来实现。这里有个问题是前面的 2和3是oAuth2的标准化流程，而第4步却不是，但是大家都这么干（它是一个大家都默许的标准）</p>
+<p>于是大家干脆就建立了一套标准协议并进行了一些优化，它叫OIDC</p>
+<blockquote>
+<p>OIDC 建立在oAuth2.0协议之上，允许客户端(Clients)通过一个授权服务(Authorization Server)来完成对用户认证的过程，并且可以得到用户的一些基本信息包含在JWT中。</p>
+</blockquote>
+<h1><a id="user-content-oidc对oauth进行了哪些扩展" class="anchor" href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/chapter1.md#oidc%E5%AF%B9oauth%E8%BF%9B%E8%A1%8C%E4%BA%86%E5%93%AA%E4%BA%9B%E6%89%A9%E5%B1%95"></a>OIDC对oAuth进行了哪些扩展？</h1>
+<p>在oAuth2.0授权码模式的帮助下，我们拿到了用户信息。</p>
+<p><a href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/assets/authroization_code_flow" target="_blank"><img src="https://github.com/jessetalk/aspnet-core-in-practise/raw/master/assets/authroization_code_flow" alt=""></a></p>
+<p>以上没有认证的过程，只是给我们的应用授权访问一个API的权限，我们通过这个API去获取当前用户的信息，这些都是通过oAuth2的授权码模式完成的。 我们来看看oAuth2 授权码模式的流程：</p>
+<p>第一步，我们向authorize endpoint请求code的时候所传递的response_type表示授权类型，原来只有固定值code</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">GET /connect/authorize?response_type=code&amp;client_id=postman&amp;state=xyz&amp;scope=api1
+        &amp;redirect_uri=http://localhost:5001/oauth2/callback</pre>
+</div>
+<p>第二步，上面的请求执行完成之后会返回301跳转至我们传过去的redirect_uri并带上code</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">https://localhost:5001/oauth2/callback?code=835d584d4bc96d46ce49e27ebdbf272e40234d5f31097f63163f17da61fcd01c
+&amp;scope=api1
+&amp;state=111271607
+</pre>
+</div>
+<p>　　</p>
+<p>第三步，用code换取access token</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">POST /connect/token?grant_type=authorization_code&amp;code=835d584d4bc96d46ce49e27ebdbf272e40234d5f31097f63163f17da61fcd01c
+&amp;redirect_uri=http://localhost:5001/oauth2/callback
+&amp;client_id=postman
+&amp;client_secret=secret
+</pre>
+</div>
+<p>　　</p>
+<p>通过这个POST我们就可以得到access_token</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">{
+    "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjV",
+    "expires_in": 3600,
+    "token_type": "Bearer"
+}
+</pre>
+</div>
+<p>　　</p>
+<p>我们拿到access_token之后，再把access_token放到authorization头请求 api来获取用户的信息。在这里，这个api不是属于授权服务器提供的，而是属于资源服务器。</p>
+<p>OIDC给oAuth2进行扩展之后就填补了这个空白，让我们可以授权它添加了以下两个内容：</p>
+<ul>
+<li>response_type 添加IdToken</li>
+<li>添加userinfo endpoint，用idToken可以获取用户信息</li>
+</ul>
+<p>OIDC对它进行了扩展，现在你有三个选择：code, id_token和 token，现在我们可以这样组合来使用。</p>
+<table>
+<thead>
+<tr><th style="text-align: left" align="left">"response_type" value</th><th align="left">Flow</th></tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">code</td>
+<td align="left">Authorization Code Flow</td>
+</tr>
+<tr>
+<td align="left">id_token</td>
+<td align="left">Implicit Flow</td>
+</tr>
+<tr>
+<td align="left">id_token token</td>
+<td align="left">Implicit Flow</td>
+</tr>
+<tr>
+<td align="left">code id_token</td>
+<td align="left">Hybrid Flow</td>
+</tr>
+<tr>
+<td align="left">code token</td>
+<td align="left">Hybrid Flow</td>
+</tr>
+<tr>
+<td align="left">code id_token token</td>
+<td align="left">Hybrid Flow</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: left">我们简单的来理解一下这三种模式：</p>
+<ul style="text-align: left">
+<li>
+<p>Authorization Code Flow授权码模式：保留oAuth2下的授权模式不变response_type=code</p>
+</li>
+<li>
+<p>Implicit Flow 隐式模式：在oAuth2下也有这个模式，主要用于客户端直接可以向授权服务器获取token，跳过中间获取code用code换accesstoken的这一步。在OIDC下，responsetype=token idtoken，也就是可以同时返回access_token和id_token。</p>
+</li>
+<li>
+<p>Hybrid Flow 混合模式： 比较有典型的地方是从authorize endpoint 获取 code idtoken，这个时候id_token可以当成认证。而可以继续用code获取access_token去做授权，比隐式模式更安全。</p>
+<p>再来详细看一下这三种模式的差异：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr><th align="left">Property</th><th align="left">Authorization Code Flow</th><th align="left">Implicit Flow</th><th align="left">Hybrid Flow</th></tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">access token和id token都通过Authorization endpoint返回</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+</tr>
+<tr>
+<td align="left">两个token都通过token end point 返回</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">no</td>
+</tr>
+<tr>
+<td align="left">用户使用的端(浏览器或者手机）无法查看token</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">no</td>
+</tr>
+<tr>
+<td align="left">Client can be authenticated</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+</tr>
+<tr>
+<td align="left">支持刷新token</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+</tr>
+<tr>
+<td align="left">不需要后端参与</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+</tr>
+<tr>
+<td align="left">&nbsp;</td>
+<td align="left">&nbsp;</td>
+<td align="left">&nbsp;</td>
+<td align="left">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: left">我们来看一下通过Hybird如何获取 code、id_token、_以及access_token，然后再用id_token向userinfo endpoint请求用户信息。</p>
+<p style="text-align: left">第一步：获取code，</p>
+<ul style="text-align: left">
+<li>response_type=code id_token</li>
+<li>scope=api1 openid profile 其中openid即为用户的唯一识别号</li>
+</ul>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">GET /connect/authorize?response_type=code id_token&amp;client_id=postman&amp;state=xyz&amp;scope=api1 openid profile
+&amp;nonce=7362CAEA-9CA5-4B43-9BA3-34D7C303EBA7
+        &amp;redirect_uri=http://localhost:5001/oauth2/callback</pre>
+</div>
+<p style="text-align: left">当我们使用OIDC的时候，我们请求里面多了一个nonce的参数，与state有异曲同工之妙。我们给它一个guid值即可。</p>
+<p style="text-align: left">第二步：我们的redirect_uri在接收的时候即可以拿到code 和 id_token</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">https://localhost:5001/oauth2/callback#
+code=c5eaaaca8d4538f69f670a900d7a4fa1d1300b26ec67fba2f84129f0ab4ffa35
+&amp;id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjVjMzA5ZGIwYTE2OGEwOTgGtpbj0GVXNnkKhGdrzA
+&amp;scope=openid%20profile%20api1&amp;state=111271607
+</pre>
+</div>
+<p>　　</p>
+<p style="text-align: left">第三步：用code换access_token(这一步与oAuth2中的授权码模式一致）</p>
+<p style="text-align: left">第四步：用access_token向userinfo endpoint获取用户资料</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">Get http://localhost:5000/connect/userinfo
+Authorization Bearer access_token
+</pre>
+</div>
+<p>　　</p>
+<p style="text-align: left">返回的用户信息</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:bash;gutter:true;">{
+    "name": "scott",
+    "family_name": "liu",
+    "sub": "5BE86359-073C-434B-AD2D-A3932222DABE"
+}
+</pre>
+</div>
+<p>　　</p>
+<p style="text-align: left">以下是我们的流程示意图。</p>
+<p style="text-align: left"><a href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/assets/oidc_userinfo_get" target="_blank"><img src="https://github.com/jessetalk/aspnet-core-in-practise/raw/master/assets/oidc_userinfo_get" alt=""></a></p>
+<p style="text-align: left">有人可能会注意到，在这里我们拿到的idtoken没有派上用场，我们的用户资料还是通过access_token从userinfo endpoint里拿的。这里有两个区别：</p>
+<ol style="text-align: left">
+<li>userinfo endpoint是属于认证服务器实现的，并非资源服务器，有归属的区别</li>
+<li>id_token 是一个jwt，里面带有用户的唯一标识，我们在判断该用户已经存在的时候不需要再请求userinfo endpoint</li>
+</ol>
+<p style="text-align: left">下图是对id_token进行解析得到的信息：sub即subject_id(用户唯一标识 )</p>
+<p style="text-align: left"><a href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/assets/id_token_jwt" target="_blank"><img src="https://github.com/jessetalk/aspnet-core-in-practise/raw/master/assets/id_token_jwt" alt=""></a></p>
+<p style="text-align: left">对jwt了解的同学知道它里面本身就可以存储用户的信息，那么id_token可以吗？答案当然是可以的，我们将在介绍完identity server4的集成之后最后来实现。</p>
+<h1 style="text-align: left"><a id="user-content-identity-server4提供的oidc认证服务" class="anchor" href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/chapter1.md#identity-server4%E6%8F%90%E4%BE%9B%E7%9A%84oidc%E8%AE%A4%E8%AF%81%E6%9C%8D%E5%8A%A1"></a>Identity Server4提供的OIDC认证服务</h1>
+<p style="text-align: left">Identity Server4是asp.net core2.0实现的一套oAuth2 和OIDC框架，用它我们可以很快速的搭建一套自己的认证和授权服务。我们来看一下用它如何快速实现OIDC认证服务。</p>
+<p style="text-align: left">由于用户登录代码过多，完整代码可以加入ASP.NET Core QQ群 92436737获取。 此处仅展示配置核心代码。</p>
+<p style="text-align: left">过程</p>
+<ul style="text-align: left">
+<li>新建asp.net core web应用程序</li>
+<li>添加identityserver4 nuget引用</li>
+<li>依赖注入初始化</li>
+</ul>
+<div class="cnblogs_code" style="text-align: left">
+<pre><span style="color: rgba(0, 0, 0, 1)">services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddTestUsers(Config.GetTestUsers());</span></pre>
+</div>
+<ul style="text-align: left">
+<li>中间件添加</li>
+</ul>
+<div class="cnblogs_code" style="text-align: left">
+<pre>app.UseIdentityServer();</pre>
+</div>
+<ul style="text-align: left">
+<li>配置</li>
+</ul>
+<p style="text-align: left">在测试的时候我们新建一个Config.cs来放一些配置信息</p>
+<p style="text-align: left">api resources</p>
+<div class="cnblogs_code" style="text-align: left">
+<pre><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> IEnumerable&lt;ApiResource&gt;<span style="color: rgba(0, 0, 0, 1)"> GetApiResources()
+        {
+            </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">new</span> List&lt;ApiResource&gt;<span style="color: rgba(0, 0, 0, 1)">
+            {
+                </span><span style="color: rgba(0, 0, 255, 1)">new</span> ApiResource(<span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">api1</span><span style="color: rgba(128, 0, 0, 1)">"</span>, <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">API Application</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">){
+                    UserClaims </span>= { <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">role</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">, JwtClaimTypes.Role }
+                }
+            };
+        }</span></pre>
+</div>
+<p style="text-align: left">identity resources</p>
+<div class="cnblogs_code" style="text-align: left">
+<pre><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> IEnumerable&lt;ApiResource&gt;<span style="color: rgba(0, 0, 0, 1)"> GetApiResources()
+        {
+            </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">new</span> List&lt;ApiResource&gt;<span style="color: rgba(0, 0, 0, 1)">
+            {
+                </span><span style="color: rgba(0, 0, 255, 1)">new</span> ApiResource(<span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">api1</span><span style="color: rgba(128, 0, 0, 1)">"</span>, <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">API Application</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">){
+                    UserClaims </span>= { <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">role</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">, JwtClaimTypes.Role }
+                }
+            };
+        }</span></pre>
+</div>
+<p style="text-align: left">&nbsp;</p>
+<p style="text-align: left">clients</p>
+<p style="text-align: left">我们要讲的关键信息在这里，client有一个AllowGrantTypes它是一个string的集合。我们要写进去的值就是我们在上一节讲三种模式: Code，Implict和Hybird。因为这三种模式决定了我们的response_type可以请求哪几个值，所以这个地方一定不能写错。</p>
+<p style="text-align: left">IdentityServer4.Models.GrantTypes这个枚举给我们提供了一些选项，实际上是把oAuth的4种和OIDC的3种进行了组保。</p>
+<div class="cnblogs_code" style="text-align: left">
+<pre><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> IEnumerable&lt;Client&gt;<span style="color: rgba(0, 0, 0, 1)"> GetClients()
+        {
+            </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">new</span> List&lt;Client&gt;<span style="color: rgba(0, 0, 0, 1)">
+            {
+                </span><span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> Client
+                {
+                    ClientId </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">postman</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">,
+
+                    AllowedGrantTypes </span>=<span style="color: rgba(0, 0, 0, 1)"> GrantTypes.Hybird,
+                    RedirectUris </span>= { <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">https://localhost:5001/oauth2/callback</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)"> },
+
+                    ClientSecrets </span>=<span style="color: rgba(0, 0, 0, 1)">
+                    {
+                        </span><span style="color: rgba(0, 0, 255, 1)">new</span> Secret(<span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">secret</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">.Sha256())
+                    },
+
+                     AllowedScopes </span>= <span style="color: rgba(0, 0, 255, 1)">new</span> List&lt;<span style="color: rgba(0, 0, 255, 1)">string</span>&gt;<span style="color: rgba(0, 0, 0, 1)">
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        </span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">api1</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">
+                    },
+
+                    AllowOfflineAccess</span>=<span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">,
+
+                },
+            };
+        }</span></pre>
+</div>
+<p style="text-align: left">&nbsp;</p>
+<p style="text-align: left">users</p>
+<div class="cnblogs_code" style="text-align: left">
+<pre><span style="color: rgba(0, 0, 255, 1)">public</span> <span style="color: rgba(0, 0, 255, 1)">static</span> List&lt;TestUser&gt;<span style="color: rgba(0, 0, 0, 1)"> GetTestUsers()
+        {
+            </span><span style="color: rgba(0, 0, 255, 1)">return</span> <span style="color: rgba(0, 0, 255, 1)">new</span> List&lt;TestUser&gt;<span style="color: rgba(0, 0, 0, 1)"> {
+            </span><span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> TestUser {
+                SubjectId </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">5BE86359-073C-434B-AD2D-A3932222DABE</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">,
+                Username </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">scott</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">,
+                Password </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">password</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">,
+                Claims </span>= <span style="color: rgba(0, 0, 255, 1)">new</span> List&lt;Claim&gt;<span style="color: rgba(0, 0, 0, 1)"> {
+
+                    </span><span style="color: rgba(0, 0, 255, 1)">new</span> Claim(JwtClaimTypes.Name, <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">scott</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">),
+                    </span><span style="color: rgba(0, 0, 255, 1)">new</span> Claim(JwtClaimTypes.FamilyName, <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">liu</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">),
+                    </span><span style="color: rgba(0, 0, 255, 1)">new</span> Claim(JwtClaimTypes.Email, <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">scott@scottbrady91.com</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">),
+                    </span><span style="color: rgba(0, 0, 255, 1)">new</span> Claim(JwtClaimTypes.Role, <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">user</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">),
+                }
+            }
+            };
+        }</span></pre>
+</div>
+<p style="text-align: left">&nbsp;</p>
+<h1 style="text-align: left"><a id="user-content-aspnet-core的权限体系中的oidc认证框架" class="anchor" href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/chapter1.md#aspnet-core%E7%9A%84%E6%9D%83%E9%99%90%E4%BD%93%E7%B3%BB%E4%B8%AD%E7%9A%84oidc%E8%AE%A4%E8%AF%81%E6%A1%86%E6%9E%B6"></a>ASP.NET Core的权限体系中的OIDC认证框架</h1>
+<p style="text-align: left">在Microsoft.AspNetCore.All nuget引用中包含了Microsoft.AspNetCore.Authentication.OpenIdConnect即asp.net core OIDC的客户端。我们需要在依赖注入中添加以下配置：</p>
+<div class="cnblogs_code">
+<pre>services.AddAuthentication(options =&gt;<span style="color: rgba(0, 0, 0, 1)">
+            {
+                options.DefaultScheme </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">Cookies</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;
+                options.DefaultChallengeScheme </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">oidc</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;
+            })
+          .AddCookie(</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">Cookies</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">)
+          .AddOpenIdConnect(</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">oidc</span><span style="color: rgba(128, 0, 0, 1)">"</span>, options =&gt;<span style="color: rgba(0, 0, 0, 1)">
+          {
+              options.SignInScheme </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">Cookies</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;
+              options.Authority </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">http://localhost:5000</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;
+              options.RequireHttpsMetadata </span>= <span style="color: rgba(0, 0, 255, 1)">false</span><span style="color: rgba(0, 0, 0, 1)">;
+              options.ClientId </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">postman</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;
+              options.ClientSecret </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">secret</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;
+              options.ResponseType </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">code id_token</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">;
+              options.GetClaimsFromUserInfoEndpoint </span>= <span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">;
+              options.Scope.Add(</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">api1</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">);
+              options.Scope.Add(</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">offline_access</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">);
+          });</span></pre>
+</div>
+<p>&nbsp;</p>
+<p style="text-align: left">Authority即我们的用identity server4搭建的认证授权服务器，而其中的GetClaimsFromUserInfoEndpoint则会在拿到id_token之后自动向userinfo endpoint请求用户信息并放到asp.net core的User Identity下。</p>
+<p style="text-align: left">我们上面讲过，可以不需要请求userinfo endpoint, 直接将用户信息放到id_token中。</p>
+<p style="text-align: left"><a href="https://github.com/jessetalk/aspnet-core-in-practise/blob/master/assets/userinfo_in_idtoken" target="_blank"><img src="https://github.com/jessetalk/aspnet-core-in-practise/raw/master/assets/userinfo_in_idtoken" alt=""></a></p>
+<p style="text-align: left">这样我们就不需要再向userinfo endpoint发起请求，从id_token中即可以获取到用户的信息。而有了identity server4的帮助，完成这一步只需要一句简单的配置即可：</p>
+<div class="cnblogs_code" style="text-align: left">
+<pre><span style="color: rgba(0, 0, 255, 1)">new</span><span style="color: rgba(0, 0, 0, 1)"> Client
+{
+    ClientId </span>= <span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(128, 0, 0, 1)">postman</span><span style="color: rgba(128, 0, 0, 1)">"</span><span style="color: rgba(0, 0, 0, 1)">,
+
+    AlwaysIncludeUserClaimsInIdToken </span>= <span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">,
+    AllowOfflineAccess</span>=<span style="color: rgba(0, 0, 255, 1)">true</span><span style="color: rgba(0, 0, 0, 1)">,
+}</span></pre>
+</div>
+<p style="text-align: left">&nbsp;这样我们在拿到id_token之后，里即包含了我们的用户信息。</p>
+<p style="text-align: left"><img src="https://images2018.cnblogs.com/blog/554526/201802/554526-20180224225049421-1875322008.png" alt=""></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p style="text-align: left">资料：</p>
+<p style="text-align: left">晓晨master的identity server4中文文档 &nbsp;<a href="http://www.cnblogs.com/stulzq/p/8119928.html" target="_blank">http://www.cnblogs.com/stulzq/p/8119928.html<br></a>李念辉身份认证核心:<a href="http://openid.net/specs/openid-connect-discovery-1_0.html" target="_blank"> https://www.cnblogs.com/linianhui/archive/2017/05/30/openid-connect-core.html</a><br>OIDC协议： <a href="http://openid.net/specs/openid-connect-discovery-1_0.html" target="_blank">http://openid.net/specs/openid-connect-discovery-1_0.html</a><br>Jesse腾飞的asp.net core项目实战第一章identity server4准备 <a href="http://video.jessetalk.cn/course/5" target="_blank">http://video.jessetalk.cn/course/5</a></p>
+<p style="text-align: left">&nbsp;</p>
+<p style="text-align: left">&nbsp;</p>
+</div>
+<div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+    <div id="blog_post_info"></div>
+    <div class="clear"></div>
+    <div id="post_next_prev"></div>
+</div>
+            </div>
+            <div class="postDesc">posted @ 
+<span id="post-date">2018-03-07 09:45</span>&nbsp;
+<a href="https://www.cnblogs.com/jesse2013/">腾飞（Jesse)</a>&nbsp;
+阅读(<span id="post_view_count">5366</span>)&nbsp;
+评论(<span id="post_comment_count">3</span>)&nbsp;
+<a href="https://i.cnblogs.com/EditPosts.aspx?postid=8467850" rel="nofollow">编辑</a>&nbsp;
+<a href="javascript:void(0)" onclick="AddToWz(8467850);return false;">收藏</a></div>
+        </div>
+	    
+	    
+    </div><!--end: topics 文章、评论容器-->
+</div>
+<script src="https://common.cnblogs.com/highlight/10.3.1/highlight.min.js"></script>
+<script>markdown_highlight();</script>
+<script>
+    var allowComments = true, cb_blogId = 159331, cb_blogApp = 'jesse2013', cb_blogUserGuid = 'dfb583e1-aefc-e211-8d02-90b11c0b17d6';
+    var cb_entryId = 8467850, cb_entryCreatedDate = '2018-03-07 09:45', cb_postType = 1;
+    loadViewCount(cb_entryId);
+</script>
+<a name="!comments"></a>
+<div id="blog-comments-placeholder"></div>
+<div id="comment_form" class="commentform">
+    <a name="commentform"></a>
+    <div id="divCommentShow"></div>
+    <div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+    <div id="comment_form_container"></div>
+    <div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+    <div id="ad_t2"></div>
+    <div id="opt_under_post"></div>
+    <div id="cnblogs_c1" class="c_ad_block">
+        <div id='div-gpt-ad-1592365906576-0' style='width: 300px; height: 250px;'></div>
+    </div>
+    <div id="under_post_news"></div>
+    <div id="cnblogs_c2" class="c_ad_block">
+        <div id='div-gpt-ad-1592366332455-0' style='width: 468px; height: 60px;'></div>
+    </div>
+    <div id="under_post_kb"></div>
+    <div id="HistoryToday" class="c_ad_block"></div>
+    <script type="text/javascript">
+       var commentManager = new blogCommentManager();
+       commentManager.renderComments(0);
+       fixPostBody();
+       deliverBigBanner();
+setTimeout(function() { incrementViewCount(cb_entryId); }, 50);       deliverT2();
+       deliverC1C2();
+       loadNewsAndKb();
+       loadBlogSignature();
+LoadPostCategoriesTags(cb_blogId, cb_entryId);       LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+       GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+       loadOptUnderPost();
+       GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+   </script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+	<div id="sideBar">
+		<div id="sideBarMain">
+			<div id="sidebar_news" class="newsItem">
+            <script>loadBlogNews();</script>
+</div>
+<div id="sidebar_ad"></div>
+			<div id="blog-calendar" style="display:none"></div><script>loadBlogDefaultCalendar();</script>			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div>
+                    <script>loadBlogSideColumn();</script>
+			</div>			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		<!--done-->
+Copyright &copy; 2020 腾飞（Jesse)
+<br /><span id="poweredby">Powered by .NET 5.0.0-rc.2.20475.5 on Kubernetes</span>
+
+
+
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+
+    
+</body>
+</html>
