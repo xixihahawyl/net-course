@@ -21,17 +21,18 @@ namespace appForm
             //customerBindingSource.Add(new Customer("2", "zhang"));
 
         }
-        public FormEdit(app.Order order, bool editMode = false) : this()
+          public FormEdit(app.Order order, bool editMode = false) : this()
         {
             //TODO 如果想实现不点保存只关窗口后订单不变化，需要把order深克隆给CurrentOrder
             CurrentOrder = order;
             orderBindingSource.DataSource = CurrentOrder;
-            textBox1.Enabled = !editMode;
+            //textBox1.Enabled = !editMode;
             if (!editMode)
             {
                 //CurrentOrder.Customer = (Customer)customerBindingSource.Current;
             }
         }
+      
 
         private void add_Click(object sender, EventArgs e)
         {

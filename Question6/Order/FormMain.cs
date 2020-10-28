@@ -13,7 +13,6 @@ namespace appForm
 {
     public partial class Form1 : Form
     {
-        app.OrderService orderService;
         BindingSource fieldsBS = new BindingSource();
         public String Keyword { get; set; }
         public Form1()
@@ -34,7 +33,7 @@ namespace appForm
             // orderService.addOrder(order2);
             // orderBindingSource.DataSource = orderService.Orders;
             comboBox1.SelectedIndex = 0;
-             textBox1.DataBindings.Add("text",this,"keyword");//数据绑定
+            textBox1.DataBindings.Add("text", this, "keyword");//数据绑定
             orderBindingSource.DataSource = app.OrderService.GetAllOrders();
 
 
@@ -72,6 +71,44 @@ namespace appForm
             if (form2.ShowDialog() == DialogResult.OK)
             {
                 app.OrderService.UpdateOrder(form2.CurrentOrder);
+                QueryAll();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0://所有订单
+                    orderBindingSource.DataSource = app.OrderService.GetAllOrders();
+                    break;
+                case 1://根据ID查询
+                    app.Order order = app.OrderService.GetOrder(Keyword);
+                    List<app.Order> result = new List<app.Order>();
+                    if (order != null) result.Add(order);
+                    orderBindingSource.DataSource = result;
+                    break;
+            }
+            orderBindingSource.ResetBindings(true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = saveFileDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                String fileName = saveFileDialog1.FileName;
+                app.OrderService.Export(fileName);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result.Equals(DialogResult.OK))
+            {
+                String fileName = openFileDialog1.FileName;
+                app.OrderService.Import(fileName);
                 QueryAll();
             }
         }

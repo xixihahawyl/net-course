@@ -34,9 +34,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
-            this.itemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.itemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.itemsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,10 +86,6 @@
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
             // 
-            // itemsBindingSource
-            // 
-            this.itemsBindingSource.DataSource = typeof(app.OrderDetails);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -105,11 +103,34 @@
             this.textBox3.Size = new System.Drawing.Size(148, 21);
             this.textBox3.TabIndex = 7;
             // 
+            // itemsBindingSource
+            // 
+            this.itemsBindingSource.DataSource = typeof(app.OrderDetails);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(168, 98);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Id";
+            // 
+            // textBox4
+            // 
+            this.textBox4.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.itemsBindingSource, "Id", true));
+            this.textBox4.Location = new System.Drawing.Point(270, 94);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(148, 21);
+            this.textBox4.TabIndex = 9;
+            // 
             // FormItemsEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnOK);
@@ -134,5 +155,7 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox4;
     }
 }

@@ -27,5 +27,17 @@ namespace app
             string s = "商品价格:" + price + "商品数量:" + count + "商品名字:" + name;
             return s;
         }
+
+        public override bool Equals(object obj)
+        {
+            var item = obj as OrderDetails;
+            return item != null &&
+                   Id == item.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return 2108858624 + EqualityComparer<string>.Default.GetHashCode(Id);
+        }
     }
 }

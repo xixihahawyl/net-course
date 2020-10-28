@@ -157,84 +157,19 @@ namespace app
         {
             return db.Orders.Include(o => o.Details);
         }
-        //添加
-       /* public void addOrder(Order a)
-        { 
-
-            if (orders.Contains(a))
-            {
-                throw new ApplicationException($"the orderList contains an order with ID {a.Id} !");
-            }
-            orders.Add(a);
-        }
-       */
-        //获得id准备删除
-      /*  public int getId()
-        {
-            Console.WriteLine("输入要删除的ID");
-            int id = Convert.ToInt32(Console.ReadLine());
-            return id;
-        }
-      */
-        //删除byid
-      /*  public void deleteOrder(int id )
-        {
-            int index = 0;
-            foreach (Order a in this.orders)
-            {
-                if (a.Id == id) index = this.orders.IndexOf(a);
-            }
-            this.orders.RemoveAt(index); Console.WriteLine("删除成功");
-        }
-      */
-        //getOrderById
-      /*  public Order GetOrder(int id)
-        {
-            return orders.Where(o => o.Id == id).FirstOrDefault();
-        }
-      */
-        //AddByOrder
-        /*public void AddOrder(Order order)
-        {
-            if (orders.Contains(order))
-                throw new ApplicationException($"添加错误: 订单{order.Id} 已经存在了!");
-            orders.Add(order);
-        }
-        */
-        //RemoveById
-       /* public void RemoveOrder(int orderId)
-        {
-            Order order = GetOrder(orderId);
-            if (order != null)
-            {
-                orders.Remove(order);
-            }
-        }
-       */
-        //Update
-       /* public void UpdateOrder(Order newOrder)
-        {
-            Order oldOrder = GetOrder(newOrder.Id);
-            if (oldOrder == null)
-                throw new ApplicationException($"修改错误：订单 {newOrder.Id} 不存在!");
-            orders.Remove(oldOrder);
-            orders.Add(newOrder);
-        }
-       */
-
-        //序列化
-        public void Export(String fileName)
+     
+        public static void Export(String fileName)
         {
             if (Path.GetExtension(fileName) != ".xml")
                 throw new ArgumentException("the exported file must be a xml file!");
             XmlSerializer xs = new XmlSerializer(typeof(List<Order>));
             using (FileStream fs = new FileStream(fileName, FileMode.Create))
             {
-                xs.Serialize(fs, this.orders);
+                xs.Serialize(fs, GetAllOrders());
             }
         }
         //反序列化
-        public List<Order> Import(string path)
+        public static List<Order> Import(string path)
         {
             if (Path.GetExtension(path) != ".xml")
                 throw new ArgumentException($"{path} isn't a xml file!");

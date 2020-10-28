@@ -14,7 +14,8 @@ namespace app
         public OrderContext() : base("OrderDatabase")
         {
             Database.SetInitializer(
-            new DropCreateDatabaseIfModelChanges<OrderContext>());
+            //new DropCreateDatabaseIfModelChanges<OrderContext>());
+            new DropCreateDatabaseAlways<OrderContext>());
         }
 
         public DbSet<Order> Orders { get; set; }

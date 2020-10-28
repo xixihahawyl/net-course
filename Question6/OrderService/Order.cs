@@ -52,10 +52,9 @@ namespace app
 
         public override bool Equals(object obj)
         {
-            Order a = obj as Order; 
-            if (this.Id == a.Id && this.Customer == a.Customer)
-                return true;
-            return false;
+            var order = obj as Order;
+            return order != null &&
+                   Id == order.Id;
         }
 
 
@@ -71,7 +70,7 @@ namespace app
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return 2108858624 + EqualityComparer<string>.Default.GetHashCode(Id);
         }
     }
 }
