@@ -13,8 +13,9 @@ namespace app
         public double price { get; set; }
         public int count { get; set;}
         public string name { get; set; }
-        public double totalPrice { get => price * count; }
         public string OrderId { get; set; }
+        public double totalPrice { get => price * count; }
+
 
         public OrderDetails(double price,int count,string name) {
             this.price = price;

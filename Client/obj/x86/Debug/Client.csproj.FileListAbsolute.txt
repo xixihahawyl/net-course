@@ -1,0 +1,12 @@
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\bin\Debug\Client.exe.config
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\bin\Debug\Client.exe
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\bin\Debug\Client.pdb
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.csprojAssemblyReference.cache
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.ChessPanel.resources
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.FormClient.resources
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.Properties.Resources.resources
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.Resource.resources
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.csproj.GenerateResource.cache
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.exe
+D:\原e盘\qq音乐\Winform五子棋联机版不修改\源程序\Client\obj\x86\Debug\Client.pdb

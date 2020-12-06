@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>五子棋聊天面板</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<link rel="stylesheet" href="css/jquery.classyleaves.min.css" />
+	<link rel="stylesheet" href="css/content.css" />
+	<script type="text/javascript">window.location.hash = "#ok";</script>
+</head>
+<body>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+    <script src="js/jquery.rotate.js"></script>
+    <script src="js/jquery.classyleaves.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var tree = new ClassyLeaves({
+                leaves: 30,
+                maxY: -10,
+                multiplyOnClick: true,
+                multiply: 2,
+                infinite: true,
+                speed: 4000
+            });
+            $('body').on('click', '.addLeaf', function() {
+                console.log('8');
+                tree.add(8);
+                return false;
+            });
+        });
+    </script>
+	<article class="htmleaf-container">
+		<header class="htmleaf-header">
+			<h1>五子棋网络版 <span>A plugin that will provide beautiful decorations on your website: falling and rotating interactive leaves</span></h1>
+		</header>
+		
+	</article>
+	<div class="chat_content_group sys">
+        <p class="chat_nick">系统消息</p>
+        <p class="chat_content">欢迎来到【五子棋游戏网络对战版】，请您在聊天室内文明发言。祝您游戏愉快！</p>
+    </div>
+
+<div class="chat_content_group sys">
+        <p class="chat_nick">系统消息</p>
+        <p class="chat_content">游戏开始</p>
+    </div>
+
+<div class="chat_content_group sys">
+        <p class="chat_nick">系统消息</p>
+        <p class="chat_content">恭喜无色赢得胜利</p>
+    </div>
+
+<div class="chat_content_group sys">
+        <p class="chat_nick">系统消息</p>
+        <p class="chat_content">游戏开始</p>
+    </div>
+
+<div class="chat_content_group sys">
+        <p class="chat_nick">系统消息</p>
+        <p class="chat_content">恭喜无色赢得胜利</p>
+    </div>
+
+<div class="chat_content_group sys">
+        <p class="chat_nick">系统消息</p>
+        <p class="chat_content">游戏开始</p>
+    </div>
+
+<div class="chat_content_group sys">
+        <p class="chat_nick">系统消息</p>
+        <p class="chat_content">恭喜无色赢得胜利</p>
+    </div>
+<a id='ok'></a>
